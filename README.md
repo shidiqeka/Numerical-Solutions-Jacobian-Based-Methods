@@ -8,7 +8,7 @@ Berbeda dengan sistem robot standar, modul ini mendemonstrasikan konsep **Robot 
 
 ## 📸 Demo Visualisasi
 
-![Demo Pergerakan Lengan 3-DOF](img\result.gif)
+![Demo Pergerakan Lengan 3-DOF](img/result.gif)
 
 > **Keterangan:** Lengan robot 3-DOF secara dinamis menghitung matriks Jacobian untuk mengejar titik target (bintang merah) yang diklik oleh pengguna secara *real-time*.
 
