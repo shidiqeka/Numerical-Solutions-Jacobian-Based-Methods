@@ -16,6 +16,11 @@ Berbeda dengan sistem robot standar, modul ini mendemonstrasikan konsep **Robot 
 
 ## 🧮 Landasan Matematika
 
+### Glosarium Variabel
+* **$L_1, L_2, L_3$:** Panjang fisik dari masing-masing segmen lengan (Bahu, Siku, Pergelangan).
+* **$q_1, q_2, q_3$:** Sudut rotasi pada masing-masing engsel (diukur secara relatif terhadap segmen sebelumnya).
+* **$X, Y$:** Titik koordinat ujung lengan robot (*End-Effector*) pada bidang 2D.
+
 ### 1. Forward Kinematics (FK)
 Posisi ujung lengan $(x, y)$ dihitung berdasarkan sudut ketiga sendi $(q_1, q_2, q_3)$:
 * $x = L_1 \cos(q_1) + L_2 \cos(q_1 + q_2) + L_3 \cos(q_1 + q_2 + q_3)$
@@ -23,11 +28,15 @@ Posisi ujung lengan $(x, y)$ dihitung berdasarkan sudut ketiga sendi $(q_1, q_2,
 
 ### 2. Matriks Jacobian Redundan (2x3)
 Karena orientasi diabaikan, matriks Jacobian direduksi menjadi matriks $2 \times 3$. Matriks ini memetakan kecepatan dari 3 sendi input ke kecepatan 2 sumbu output:
-$$J = \begin{bmatrix} \frac{\partial x}{\partial q_1} & \frac{\partial x}{\partial q_2} & \frac{\partial x}{\partial q_3} \\ \frac{\partial y}{\partial q_1} & \frac{\partial y}{\partial q_2} & \frac{\partial y}{\partial q_3} \end{bmatrix}$$
+$$
+J = \begin{bmatrix} \frac{\partial x}{\partial q_1} & \frac{\partial x}{\partial q_2} & \frac{\partial x}{\partial q_3} \\ \frac{\partial y}{\partial q_1} & \frac{\partial y}{\partial q_2} & \frac{\partial y}{\partial q_3} \end{bmatrix}
+$$
 
 ### 3. Iterasi Inverse Kinematics
 Pembaruan sudut dilakukan secara iteratif menggunakan **Moore-Penrose Pseudo-inverse** ($J^{\dagger}$). Langkah kecil ($\alpha$) digunakan untuk mencegah *overshoot* akibat pergerakan lengan yang bersifat non-linear:
-$$\Delta q = \alpha \cdot J^{\dagger} \cdot (X_{target} - X_{current})$$
+$$
+\Delta q = \alpha \cdot J^{\dagger} \cdot (X_{target} - X_{current})
+$$
 
 ---
 
